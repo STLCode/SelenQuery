@@ -4,7 +4,7 @@ import org.openqa.selenium.WebElement;
 
 class Should {
 
-	private int timeoutInSec =0;
+	private int timeoutInSec = 0;
 	private boolean expect = true;
 	private SelenElement selenWebElement = null;
 	private SelenDriver driver = null;
@@ -25,7 +25,7 @@ class Should {
 	public void haveText(String regex) {
 		String txt = selenWebElement.getText();
 		boolean res = Assertion.test(expect, txt.matches(regex), "Test for Text matching");
-		if(!res){
+		if (!res) {
 			Assertion.printDetails(expect, regex, txt);
 		}
 
@@ -34,7 +34,7 @@ class Should {
 	public void haveClass(String className) {
 		String actualClassName = selenWebElement.getAttribute("class");
 		Assertion.test(expect, actualClassName, className, "Test for Class Name matching");
-		
+
 	}
 
 	public void haveAttr(String attrName) {
@@ -59,7 +59,7 @@ class Should {
 	}
 
 	public void displayed() {
-		Assertion.test(expect,selenWebElement.isDisplayed(), "Test for elment displying"); 
+		Assertion.test(expect, selenWebElement.isDisplayed(), "Test for elment displying");
 	}
 
 	public void enabled() {
@@ -70,19 +70,16 @@ class Should {
 			Assertion.test(expect, false, "Readonly Test");
 		}
 	}
-	
-	
+
+
 	public void focused() {
 		WebElement elm = driver.executeScript("return document.activeElement");
-	    if(elm != null && elm.equals(selenWebElement.getWebElement()))
-	    {
-	    	Assertion.test(expect,true, "Test for elment foucsed");
-	    }
-	    else{
-	    	Assertion.test(expect,false, "Test for elment foucsed");
-	    }
+		if (elm != null && elm.equals(selenWebElement.getWebElement())) {
+			Assertion.test(expect, true, "Test for elment foucsed");
+		} else {
+			Assertion.test(expect, false, "Test for elment foucsed");
+		}
 	}
-	
 
-	
+
 }

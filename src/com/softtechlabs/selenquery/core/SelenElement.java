@@ -91,9 +91,24 @@ public class SelenElement implements WebElement {
         element.submit();
     }
 
-    //@Override
+
     public SpecialKeys type(CharSequence... keysToSend) {
         element.sendKeys(keysToSend);
+        return new SpecialKeys(element);
+    }
+
+    public SpecialKeys type(int keysToSend) {
+        element.sendKeys("" + keysToSend);
+        return new SpecialKeys(element);
+    }
+
+    public SpecialKeys type(double keysToSend) {
+        element.sendKeys("" + keysToSend);
+        return new SpecialKeys(element);
+    }
+
+    public SpecialKeys type(Object keysToSend) {
+        element.sendKeys("" + keysToSend);
         return new SpecialKeys(element);
     }
 

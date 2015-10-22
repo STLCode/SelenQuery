@@ -25,12 +25,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 		 buildDriver(browsers, capabilities, NewSession, driverpath, "localhost");
 	 }
 
-	ReusableRemoteWebDriver(SupportedBrowsers browsers, DesiredCapabilities capabilities, boolean NewSession, String driverpath, String host) {
-		buildDriver(browsers, capabilities, NewSession, driverpath, host);
-	}
-	
-	
-	
+
 	private void buildDriver(SupportedBrowsers browsers, DesiredCapabilities capabilities, boolean NewSession, String driverpath, String host){
 		String sessionData = null;
 		String address;
@@ -145,13 +140,13 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 	}
 
 	void setReusedCapabilities(Capabilities capabilities) {
-		Field capabilitiesField = getFieldSafely(this, RemoteWebDriver.class, "capabilities");
+		Field capabilitiesField = getFieldSafely(this, RemoteWebDriver.class);
 		writeValueToField(this, capabilitiesField, capabilities);
 	}
 
-	private static Field getFieldSafely(Object object, Class<?> clazz, String fieldName) {
+	private static Field getFieldSafely(Object object, Class<?> clazz) {
 		try {
-			return clazz.getDeclaredField(fieldName);
+			return clazz.getDeclaredField("capabilities");
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}

@@ -15,11 +15,12 @@ import com.google.common.util.concurrent.UncheckedTimeoutException;
 
 class SelenWebDriver extends ReusableRemoteWebDriver implements WebDriver, SelenDriver {
 
+
 	private int globalTimeOut = 30;
 	private int pageloadTimeout = 120;
 
-	SelenWebDriver(SupportedBrowsers browsers, DesiredCapabilities capabilities, boolean NewSession, String driverPath, String host) {
-		super(browsers, capabilities, NewSession, driverPath, host);
+	SelenWebDriver(SupportedBrowsers browsers, DesiredCapabilities capabilities, boolean NewSession, String driverPath) {
+		super(browsers, capabilities, NewSession, driverPath);
 		this.manage().timeouts().pageLoadTimeout(globalTimeOut, TimeUnit.SECONDS);
 		this.manage().timeouts().implicitlyWait(pageloadTimeout, TimeUnit.SECONDS);
 
@@ -38,6 +39,16 @@ class SelenWebDriver extends ReusableRemoteWebDriver implements WebDriver, Selen
 	@Override
 	public SelenElement $x(String xpath) {
 		return $x(xpath, globalTimeOut);
+	}
+
+	@Override
+	public SelenElement attr(String name, String value) {
+		return attr(name, value, globalTimeOut);
+	}
+
+	@Override
+	public SelenElement attr(String name, String value, int TimeoutInSec) {
+		return $x("//*[@" + name + "='" + value + "']", TimeoutInSec);
 	}
 
 	@Override
@@ -68,7 +79,7 @@ class SelenWebDriver extends ReusableRemoteWebDriver implements WebDriver, Selen
 	@Override
 	public boolean exists(String selector, int timeoutInSec) {
 		try {
-			$(selector,timeoutInSec);
+			$(selector, timeoutInSec);
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -242,17 +253,17 @@ class SelenWebDriver extends ReusableRemoteWebDriver implements WebDriver, Selen
 			setTimeout(timeoutInSec);
 
 			switch (searchType) {
-			case "SELECTOR":
-				elements = this.findElementsByCssSelector(searchData);
-				break;
-			case "XPATH":
-				elements = this.findElementsByXPath(searchData);
-				break;
-			case "BY":
-				elements = this.findElements(by);
-				break;
-			default:
-				break;
+				case "SELECTOR":
+					elements = this.findElementsByCssSelector(searchData);
+					break;
+				case "XPATH":
+					elements = this.findElementsByXPath(searchData);
+					break;
+				case "BY":
+					elements = this.findElements(by);
+					break;
+				default:
+					break;
 			}
 
 			List<SelenElement> list = new ArrayList<>();
@@ -294,21 +305,21 @@ class SelenWebDriver extends ReusableRemoteWebDriver implements WebDriver, Selen
 
 	@Override
 	public SelenElement any(Object... queryString) {
-		return any(0,  queryString);
+		return any(0, queryString);
 	}
-	
+
 	@Override
 	public SelenElement any(List<Object> listQueryString) {
-		return any(listQueryString,0);
+		return any(listQueryString, 0);
 	}
-	
+
 	@Override
 	public SelenElement any(int TimeoutInSec, Object... queryString) {
 		List<Object> list = new ArrayList<>();
 		Collections.addAll(list, queryString);
 		return any(list, TimeoutInSec);
 	}
-	
+
 
 	@Override
 	public SelenElement any(HashMap<String, Object> mapNameAndQueryString) {
@@ -319,20 +330,19 @@ class SelenWebDriver extends ReusableRemoteWebDriver implements WebDriver, Selen
 	@Override
 	public SelenElement any(HashMap<String, Object> mapNameAndQueryString, int TimeoutInSec) {
 		setTimeout(0);
-		if(TimeoutInSec==0){
+		if (TimeoutInSec == 0) {
 			TimeoutInSec = getGlobalTimeout();
 		}
-		int iteration = TimeoutInSec * 10; 
-		while (iteration-- >0) {
+		int iteration = TimeoutInSec * 10;
+		while (iteration-- > 0) {
 			for (String key : mapNameAndQueryString.keySet()) {
 				Object string = mapNameAndQueryString.get(key);
 				if (this.exists(string)) {
 					resetTimeout();
-					SelenElement elm =  $(string);
+					SelenElement elm = $(string);
 					elm.setName(key);
 					return elm;
-				}
-				else {
+				} else {
 					sleep(100);
 				}
 			}
@@ -345,17 +355,16 @@ class SelenWebDriver extends ReusableRemoteWebDriver implements WebDriver, Selen
 	@Override
 	public SelenElement any(List<Object> listQueryString, int TimeoutInSec) {
 		setTimeout(0);
-		if(TimeoutInSec==0){
+		if (TimeoutInSec == 0) {
 			TimeoutInSec = getGlobalTimeout();
 		}
-		int iteration = TimeoutInSec * 10; 
-		while (iteration-- >0) {
+		int iteration = TimeoutInSec * 10;
+		while (iteration-- > 0) {
 			for (Object string : listQueryString) {
 				if (this.exists(string)) {
 					resetTimeout();
 					return $(string);
-				}
-				else {
+				} else {
 					sleep(100);
 				}
 			}
@@ -366,32 +375,26 @@ class SelenWebDriver extends ReusableRemoteWebDriver implements WebDriver, Selen
 
 
 	public SelenElement executeScript(String script) {
-		WebElement obj = (WebElement)super.executeScript(script, null);
-		return  new SelenElement(this,obj);
+		WebElement obj = (WebElement) super.executeScript(script, null);
+		return new SelenElement(this, obj);
 	}
 
 
 	private SelenElement $(Object byOrStrObj) {
-		if(byOrStrObj.getClass().getTypeName().equals("java.lang.String")){
-			return $((String)byOrStrObj,0);	
+		if (byOrStrObj.getClass().getTypeName().equals("java.lang.String")) {
+			return $((String) byOrStrObj, 0);
+		} else {
+			return $((By) byOrStrObj, 0);
 		}
-		else{
-			return $((By)byOrStrObj,0);	
-		}
-		
+
 	}
 
 	private boolean exists(Object byOrStrObj) {
-		if(byOrStrObj.getClass().getTypeName().equals("java.lang.String")){
-			return exists((String)byOrStrObj,0);	
-		}
-		else{
-			return exists((By)byOrStrObj,0);	
+		if (byOrStrObj.getClass().getTypeName().equals("java.lang.String")) {
+			return exists((String) byOrStrObj, 0);
+		} else {
+			return exists((By) byOrStrObj, 0);
 		}
 	}
-
-
-
-
 
 }

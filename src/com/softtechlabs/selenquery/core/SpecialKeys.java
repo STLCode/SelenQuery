@@ -12,5 +12,12 @@ class SpecialKeys {
 	public void pressEnter(){
 		this.element.sendKeys(Keys.ENTER);
 	}
-	
+
+	public void pressTab(){
+		this.element.sendKeys(Keys.TAB);
+	}
+
+	public void pressEsc(){
+		this.element.sendKeys(Keys.ESCAPE);
+	}
 }
