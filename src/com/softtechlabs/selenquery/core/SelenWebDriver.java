@@ -375,7 +375,7 @@ class SelenWebDriver extends ReusableRemoteWebDriver implements WebDriver, Selen
 
 
 	public SelenElement executeScript(String script) {
-		WebElement obj = (WebElement) super.executeScript(script, null);
+		WebElement obj = (WebElement) super.executeScript(script);
 		return new SelenElement(this, obj);
 	}
 
@@ -396,5 +396,16 @@ class SelenWebDriver extends ReusableRemoteWebDriver implements WebDriver, Selen
 			return exists((By) byOrStrObj, 0);
 		}
 	}
+
+
+
+	@Override
+	public SelenRadioGroup radio(String name) {
+		SelenRadioGroup group = new SelenRadioGroup();
+		group.addAll($$(By.name(name)));
+		return group;
+
+	}
+
 
 }

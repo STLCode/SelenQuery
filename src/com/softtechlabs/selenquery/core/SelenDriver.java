@@ -8,88 +8,85 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public interface SelenDriver extends WebDriver {
+    boolean exists(By by);
 
-	SelenElement $(String selector);
+    boolean exists(By by, int TimeoutInSec);
 
-	SelenElement $(By by);
+    boolean exists(String selector);
 
-	SelenElement $x(String xpath);
+    boolean exists(String selector, int TimeoutInSec);
 
-	SelenElement attr(String name, String value);
+    boolean isNewSession();
 
-	List<SelenElement> $$(String selector);
+    int getGlobalTimeout();
 
-	List<SelenElement> $$(By by);
+    int getPageLoadTimeout();
 
-	List<SelenElement> $$x(String xpath);
+    List<SelenElement> $$(By by);
 
-	boolean exists(String selector);
+    List<SelenElement> $$(By by, int TimeoutInSec);
 
-	boolean exists(By by);
+    List<SelenElement> $$(String selector);
 
-	void shouldExists(String selector);
+    List<SelenElement> $$(String selector, int TimeoutInSec);
 
-	void shouldNotExists(String selector);
+    List<SelenElement> $$x(String xpath);
 
-	void shouldExists(By by);
+    List<SelenElement> $$x(String xpath, int TimeoutInSec);
 
-	void shouldNotExists(By by);
+    SelenRadioGroup radio(String name);
 
-	boolean isNewSession();
+    SelenElement $(By by);
 
-	void get(String url, boolean force);
+    SelenElement $(By by, int TimeoutInSec);
 
-	void sleep(long milliseconds);
+    SelenElement $(String selector);
 
-	SelenElement any(Object... queryString);
+    SelenElement $(String selector, int TimeoutInSec);
 
-	SelenElement any(HashMap<String, Object> mapNameAndQueryString);
+    SelenElement $x(String xpath);
 
-	SelenElement any(List<Object> listQueryString);
+    SelenElement $x(String xpath, int TimeoutInSec);
 
+    SelenElement any(HashMap<String, Object> mapNameAndQueryString);
 
-	//With timeout
-	SelenElement $(String selector, int TimeoutInSec);
+    SelenElement any(HashMap<String, Object> mapNameAndQueryString, int TimeoutInSec);
 
-	SelenElement $(By by, int TimeoutInSec);
+    SelenElement any(int TimeoutInSec, Object... queryString);
 
-	SelenElement $x(String xpath, int TimeoutInSec);
+    SelenElement any(List<Object> listQueryString);
 
-	List<SelenElement> $$(String selector, int TimeoutInSec);
+    SelenElement any(List<Object> listQueryString, int TimeoutInSec);
 
-	List<SelenElement> $$(By by, int TimeoutInSec);
+    SelenElement any(Object... queryString);
 
-	List<SelenElement> $$x(String xpath, int TimeoutInSec);
+    SelenElement attr(String name, String value);
 
-	boolean exists(String selector, int TimeoutInSec);
+    SelenElement attr(String name, String value, int TimeoutInSec);
 
-	boolean exists(By by, int TimeoutInSec);
+    SelenElement executeScript(String script);
 
-	int getGlobalTimeout();
+    void get(String url, boolean force);
 
-	void setGlobalTimeout(int TimeoutInSec);
+    void setGlobalTimeout(int TimeoutInSec);
 
-	int getPageLoadTimeout();
+    void setPageLoadTimeout(int TimeoutInSec);
 
-	void setPageLoadTimeout(int TimeoutInSec);
+    void shouldExists(By by);
 
+    void shouldExists(By by, int TimeoutInSec);
 
-	void shouldExists(String selector, int TimeoutInSec);
+    void shouldExists(String selector);
 
-	void shouldNotExists(String selector, int TimeoutInSec);
+    void shouldExists(String selector, int TimeoutInSec);
 
-	void shouldExists(By by, int TimeoutInSec);
+    void shouldNotExists(By by);
 
-	void shouldNotExists(By by, int TimeoutInSec);
+    void shouldNotExists(By by, int TimeoutInSec);
 
-	SelenElement any(int TimeoutInSec, Object... queryString);
+    void shouldNotExists(String selector);
 
-	SelenElement any(HashMap<String, Object> mapNameAndQueryString, int TimeoutInSec);
+    void shouldNotExists(String selector, int TimeoutInSec);
 
-	SelenElement any(List<Object> listQueryString, int TimeoutInSec);
-
-	SelenElement executeScript(String script);
-
-	SelenElement attr(String name, String value, int TimeoutInSec);
-
+    void sleep(long milliseconds);
 }

@@ -9,6 +9,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 public class SelenElement implements WebElement {
@@ -80,10 +81,8 @@ public class SelenElement implements WebElement {
 
 
     public void dblClick() {
-        //Actions action = new Actions(element.);
-
-        //action.doubleClick(elm).perform();
-
+        Actions action = new Actions(driver);
+        action.doubleClick(element).perform();
     }
 
     @Override
@@ -180,4 +179,10 @@ public class SelenElement implements WebElement {
     }
 
 
+	public String getValue(){
+		return element.getAttribute("value");
+	}
+	
+	
+	
 }
