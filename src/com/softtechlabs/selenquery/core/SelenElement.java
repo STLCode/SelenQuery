@@ -63,8 +63,8 @@ public class SelenElement implements WebElement {
         return new Should(driver, this, false, timeoutInSec);
     }
 
-    public Select toSelect() {
-        return (Select) element;
+    public SelenSelect toSelect() {
+        return new SelenSelect(element);
     }
 
 
@@ -107,6 +107,7 @@ public class SelenElement implements WebElement {
     }
 
     public SpecialKeys type(Object keysToSend) {
+        element.clear();
         element.sendKeys("" + keysToSend);
         return new SpecialKeys(element);
     }

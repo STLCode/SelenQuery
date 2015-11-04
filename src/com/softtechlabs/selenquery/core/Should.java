@@ -2,7 +2,7 @@ package com.softtechlabs.selenquery.core;
 
 import org.openqa.selenium.WebElement;
 
-class Should {
+public class Should {
 
 	private int timeoutInSec = 0;
 	private boolean expect = true;

@@ -34,7 +34,7 @@ public class Log {
 
 	public static void error(String message) {
 		if (logLevelList.contains("error") || logLevelList.contains("all")) {
-			System.out.println("ERROR : " + message);
+			System.err.println("ERROR : " + message);
 		}
 	}
 }

@@ -17,10 +17,12 @@ public class Logger {
 	}
 	
 	public static void setLogLevel() {
-		setLogLevel("all");
+		logLevelList.clear();
+		level = "";
 	}
 
 	public static void setLogLevel(String logLevel) {
+		logLevelList.clear();
 		level = logLevel;
 		String [] levels =  logLevel.split(",");
 		for (String string : levels) {
